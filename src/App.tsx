@@ -1,20 +1,37 @@
-import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  NavLink,
+} from 'react-router-dom';
 import './App.css';
+import Button from '@mui/material/Button';
 
-function App() {
+import Home from './components/Home';
+import Metar from './components/Metar';
+
+const App = () => {
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'>
-          Learn React yo
-        </a>
-      </header>
+    <div className='container'>
+      <div className='logo'>
+        <h1>Hello</h1>
+      </div>
+      <Router>
+        <div className='menu'>
+          <Button component={NavLink} to='/'>
+            Home
+          </Button>
+          <Button component={NavLink} to='/Metar'>
+            METAR
+          </Button>
+        </div>
+        <Routes>
+          <Route path='/Metar' element={<Metar />} />
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
