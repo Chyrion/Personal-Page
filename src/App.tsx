@@ -43,6 +43,7 @@ const App = () => {
           />
         </Routes>
       </Router>
+      <div className='footer'></div>
     </div>
   );
 };
