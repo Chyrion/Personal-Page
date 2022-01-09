@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
-import Stack from '@mui/material/Stack';
+import { useState } from 'react';
+import { Stack, Box } from '@mui/material/';
+import type {} from '@mui/lab/themeAugmentation';
 import Search from './metar-components/Search';
 import Temperature from './metar-components/Temperature';
 import Humidity from './metar-components/Humidity';
 import Barometer from './metar-components/Barometer';
+import Clouds from './metar-components/Cloud';
+import Wind from './metar-components/Wind';
+import { blueGrey } from '@mui/material/colors';
 
 const Metar = () => {
   const [info, setInfo] = useState<any>([]);
@@ -12,42 +16,28 @@ const Metar = () => {
     alt: false,
     baro: false,
   });
-  const key = process.env.REACT_APP_METAR_KEY;
+  const [reqStatus, setReqStatus] = useState(1);
 
   const getData = (apt: any) => {
-    if (apt.icao.length == 4) {
+    if (apt.icao.length === 4) {
       const getInfo = async (apt: any) => {
         const infoFetched = await fetchInfo(apt);
-        setInfo(infoFetched.data[0]);
+        if (infoFetched.results === 1) {
+          setInfo(infoFetched.data[0]);
+          setReqStatus(1);
+        } else {
+          setReqStatus(0);
+        }
       };
       getInfo(apt);
-      console.log(info);
-    } else {
-      console.log('no');
     }
   };
 
   const fetchInfo = async (apt: any) => {
-    let url =
-      'https://api.checkwx.com/metar/' + apt.icao + '/decoded?x-api-key=' + key;
-    //const resu = await fetch(url);
-    //const data = await resu.json();
-    const data = fetch(url)
-      .then((response) => {
-        if (response.status >= 200 && response.status <= 299) {
-          return response.json();
-        } else {
-          throw Error(response.statusText);
-        }
-      })
-      .then((jsonResponse) => {
-        const d = jsonResponse;
-        return d;
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log('wtf u do?');
-      });
+    let url = 'https://chyrion-backend.herokuapp.com/metar/' + apt.icao;
+    const data = await fetch(url).then((response) => {
+      return response.json();
+    });
     return data;
   };
 
@@ -68,11 +58,21 @@ const Metar = () => {
       </div>
       <div className='metar-container'>
         <div className='metar-search'>
-          <Search onSearch={getData} unitChange={handleUnits} />
+          <Search
+            onSearch={getData}
+            unitChange={handleUnits}
+            status={reqStatus}
+          />
         </div>
-        <div className='metar-display'>
+        <Box
+          className='metar-display'
+          sx={{
+            backgroundColor: blueGrey[900],
+            borderRadius: '1em',
+            boxShadow: '0px 0.5em 0px rgba(0, 0, 0, 0.5)',
+          }}>
           {info !== undefined && info.length !== 0 ? (
-            <Stack>
+            <Stack sx={{ marginLeft: '1em', marginRight: '1em' }}>
               <h1>
                 {info.icao} - {info.station.name}
               </h1>
@@ -81,13 +81,15 @@ const Metar = () => {
                 dew={info.dewpoint}
                 unit={unit.temp}
               />
+              <Wind data={info.wind} />
+              <Clouds data={info.clouds} unit={unit.alt} />
               <Humidity data={info.humidity} />
               <Barometer data={info.barometer} unit={unit.baro} />
             </Stack>
           ) : (
             <></>
           )}
-        </div>
+        </Box>
       </div>
     </div>
   );
