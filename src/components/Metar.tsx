@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Stack, Box } from '@mui/material/';
 import type {} from '@mui/lab/themeAugmentation';
-import Search from './metar-components/Search';
-import Temperature from './metar-components/Temperature';
-import Humidity from './metar-components/Humidity';
-import Barometer from './metar-components/Barometer';
-import Clouds from './metar-components/Cloud';
-import Wind from './metar-components/Wind';
+import {
+  Search,
+  Temperature,
+  Humidity,
+  Barometer,
+  Clouds,
+  Wind,
+} from './metar-components/MetarComponents';
 import { blueGrey } from '@mui/material/colors';
 
 const Metar = () => {
