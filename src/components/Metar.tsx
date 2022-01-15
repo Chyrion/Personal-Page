@@ -21,9 +21,12 @@ const Metar = () => {
   const [reqStatus, setReqStatus] = useState(1);
 
   const getData = (apt: any) => {
-    if (apt.icao.length === 4) {
-      const getInfo = async (apt: any) => {
-        const infoFetched = await fetchInfo(apt);
+    var _icao;
+    apt.icao === undefined ? (_icao = apt.selectValue) : (_icao = apt.icao);
+    console.log(typeof _icao);
+    if (_icao.length === 4) {
+      const getInfo = async (icao: string) => {
+        const infoFetched = await fetchInfo(icao);
         if (infoFetched.results === 1) {
           setInfo(infoFetched.data[0]);
           setReqStatus(1);
@@ -31,12 +34,14 @@ const Metar = () => {
           setReqStatus(0);
         }
       };
-      getInfo(apt);
+      getInfo(_icao);
     }
   };
 
-  const fetchInfo = async (apt: any) => {
-    let url = 'https://chyrion-backend.herokuapp.com/metar/' + apt.icao;
+  const fetchInfo = async (icao: string) => {
+    console.log(icao);
+    let url = 'https://chyrion-backend.herokuapp.com/metar/' + icao;
+    console.log(url);
     const data = await fetch(url).then((response) => {
       return response.json();
     });

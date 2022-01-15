@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   Button,
@@ -7,7 +7,11 @@ import {
   FormControlLabel,
   Box,
   Tab,
+  Select,
+  SelectChangeEvent,
+  MenuItem,
 } from '@mui/material';
+import airports from './IcaoList';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { blueGrey } from '@mui/material/colors';
 
@@ -19,6 +23,7 @@ const Search = ({ onSearch, unitChange, status }: any) => {
     baro: false,
   });
   const [tabValue, setTabValue] = useState('1');
+  const [selectValue, setSelectValue] = useState('');
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -41,6 +46,16 @@ const Search = ({ onSearch, unitChange, status }: any) => {
     setTabValue(newValue);
   };
 
+  const handleSelectChange = (e: SelectChangeEvent) => {
+    setSelectValue(e.target.value);
+  };
+
+  useEffect(() => {
+    if (selectValue !== '') {
+      onSearch({ selectValue });
+    }
+  }, [selectValue]);
+
   return (
     <Box
       sx={{
@@ -51,7 +66,7 @@ const Search = ({ onSearch, unitChange, status }: any) => {
       <form className='metar-search-form' onSubmit={onSubmit}>
         <div className='metar-searchbox'>
           <TabContext value={tabValue}>
-            <TabList onChange={handleTabChange}>
+            <TabList onChange={handleTabChange} textColor='primary'>
               <Tab label='Search' value='1' />
               <Tab label='Select' value='2' />
             </TabList>
@@ -82,8 +97,26 @@ const Search = ({ onSearch, unitChange, status }: any) => {
                 </Button>
               </ul>
             </TabPanel>
-            <TabPanel value='2'>
-              <p>yo</p>
+            <TabPanel
+              value='2'
+              sx={{
+                padding: 0,
+                marginTop: '1em',
+                marginBottom: '1em',
+              }}>
+              <Select
+                labelId='icao-select-dropdown-label'
+                id='icao-select-dropdown'
+                value={selectValue}
+                onChange={handleSelectChange}
+                label='Airport'>
+                <MenuItem value=''>None</MenuItem>
+                {airports.map((elem: any, index: number) => (
+                  <MenuItem value={elem.icao} key={index}>
+                    {elem.name}
+                  </MenuItem>
+                ))}
+              </Select>
             </TabPanel>
           </TabContext>
         </div>

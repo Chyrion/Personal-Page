@@ -2,7 +2,6 @@ const Wind = ({ data }: any) => {
   let res = '';
 
   const windCheck = () => {
-    console.log(data);
     res =
       data !== undefined
         ? (data.degrees === 0

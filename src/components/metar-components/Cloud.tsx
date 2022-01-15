@@ -11,14 +11,6 @@ const Cloud = ({ data, unit }: any) => {
 };
 
 const Clouds = ({ data, unit }: any) => {
-  const cloudCheck = () => {
-    if (data[0].code !== 'CLR' && data[0].code !== 'CAVOK') {
-      data.map((element: any) => {
-        console.log(element);
-        return <Cloud data={element} unit={unit} />;
-      });
-    }
-  };
   return (
     <div className='metar-display__data'>
       <h3>Clouds</h3>
