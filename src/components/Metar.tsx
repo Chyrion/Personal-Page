@@ -9,7 +9,7 @@ import {
   Clouds,
   Wind,
 } from './metar-components/MetarComponents';
-import { blueGrey } from '@mui/material/colors';
+import Conditions from './metar-components/Conditions';
 
 const Metar = () => {
   const [info, setInfo] = useState<any>([]);
@@ -41,7 +41,6 @@ const Metar = () => {
   const fetchInfo = async (icao: string) => {
     console.log(icao);
     let url = 'https://chyrion-backend.herokuapp.com/metar/' + icao;
-    console.log(url);
     const data = await fetch(url).then((response) => {
       return response.json();
     });
@@ -61,7 +60,7 @@ const Metar = () => {
   return (
     <div className='metar'>
       <div className='metar-top'>
-        <h1>METAR Lookup</h1>
+        <h1>METAR Lookup - !!CURRENTLY INOPERATIONAL!!</h1>
       </div>
       <div className='metar-container'>
         <div className='metar-search'>
@@ -71,14 +70,8 @@ const Metar = () => {
             status={reqStatus}
           />
         </div>
-        <Box
-          className='metar-display'
-          sx={{
-            backgroundColor: blueGrey[900],
-            borderRadius: '1em',
-            boxShadow: '0px 0.5em 0px rgba(0, 0, 0, 0.5)',
-          }}>
-          {info !== undefined && info.length !== 0 ? (
+        {info !== undefined && info.length !== 0 ? (
+          <Box className='metar-display metar-box'>
             <Stack sx={{ marginLeft: '1em', marginRight: '1em' }}>
               <h1>
                 {info.icao} - {info.station.name}
@@ -90,13 +83,14 @@ const Metar = () => {
               />
               <Wind data={info.wind} />
               <Clouds data={info.clouds} unit={unit.alt} />
+              {info.conditions ? <Conditions data={info.conditions} /> : <></>}
               <Humidity data={info.humidity} />
               <Barometer data={info.barometer} unit={unit.baro} />
             </Stack>
-          ) : (
-            <></>
-          )}
-        </Box>
+          </Box>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

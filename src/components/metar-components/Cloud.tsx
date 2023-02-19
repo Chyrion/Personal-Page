@@ -15,11 +15,13 @@ const Clouds = ({ data, unit }: any) => {
     <div className='metar-display__data'>
       <h3>Clouds</h3>
       <div className='metar-display__cloud'>
-        {data[0].code !== 'CLR' && data[0].code !== 'CAVOK'
-          ? data.map((elem: any, index: number) => (
-              <Cloud data={elem} unit={unit} key={index} />
-            ))
-          : 'Clear skies'}
+        {data[0].code !== 'CLR' && data[0].code !== 'CAVOK' ? (
+          data.map((elem: any, index: number) => (
+            <Cloud data={elem} unit={unit} key={index} />
+          ))
+        ) : (
+          <p className='metar-p'>Clear skies</p>
+        )}
       </div>
     </div>
   );

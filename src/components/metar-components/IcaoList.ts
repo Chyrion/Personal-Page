@@ -13,7 +13,11 @@ const airports = [
   },
   {
     icao: 'LFPG',
-    name: 'Charles de Gaulle Airport',
+    name: 'Charles de Gaulle International Airport',
+  },
+  {
+    icao: 'KLAX',
+    name: 'Los Angeles International Airport',
   },
 ];
 

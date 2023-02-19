@@ -1,3 +1,5 @@
+import { North } from '@mui/icons-material';
+
 const Wind = ({ data }: any) => {
   let res = '';
 
@@ -19,7 +21,17 @@ const Wind = ({ data }: any) => {
   return (
     <div className='metar-display__data'>
       <h3>Wind</h3>
-      <p className='metar-p'>{windCheck()}</p>
+      <div className='wind-box'>
+        <div className='wind-lbox'>
+          <p className='metar-p'>{windCheck()}</p>
+        </div>
+        <div className='wind-rbox'>
+          <North
+            className='wind-icon'
+            style={{ transform: `rotate(${data.degrees}deg)` }}
+          />
+        </div>
+      </div>
     </div>
   );
 };

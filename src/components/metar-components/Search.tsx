@@ -5,15 +5,16 @@ import {
   Switch,
   FormGroup,
   FormControlLabel,
+  FormControl,
   Box,
   Tab,
   Select,
   SelectChangeEvent,
   MenuItem,
+  InputLabel,
 } from '@mui/material';
 import airports from './IcaoList';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { blueGrey } from '@mui/material/colors';
 
 const Search = ({ onSearch, unitChange, status }: any) => {
   const [icao, setIcao] = useState('');
@@ -44,6 +45,7 @@ const Search = ({ onSearch, unitChange, status }: any) => {
 
   const handleTabChange = (e: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
+    newValue === '2' ? setSelectValue('') : console.log();
   };
 
   const handleSelectChange = (e: SelectChangeEvent) => {
@@ -57,18 +59,14 @@ const Search = ({ onSearch, unitChange, status }: any) => {
   }, [selectValue]);
 
   return (
-    <Box
-      sx={{
-        backgroundColor: blueGrey[900],
-        borderRadius: '1em',
-        boxShadow: '0px 0.5em 0px rgba(0, 0, 0, 0.5)',
-      }}>
+    <Box className='metar-box'>
       <form className='metar-search-form' onSubmit={onSubmit}>
         <div className='metar-searchbox'>
           <TabContext value={tabValue}>
             <TabList onChange={handleTabChange} textColor='primary'>
               <Tab label='Search' value='1' />
               <Tab label='Select' value='2' />
+              <Tab label='About' value='3' />
             </TabList>
             <TabPanel
               value='1'
@@ -82,10 +80,6 @@ const Search = ({ onSearch, unitChange, status }: any) => {
                   className='icao-text'
                   type='text'
                   label='ICAO'
-                  variant='outlined'
-                  sx={{
-                    color: 'primary',
-                  }}
                   inputProps={{
                     maxLength: 4,
                   }}
@@ -104,39 +98,67 @@ const Search = ({ onSearch, unitChange, status }: any) => {
                 marginTop: '1em',
                 marginBottom: '1em',
               }}>
-              <Select
-                labelId='icao-select-dropdown-label'
-                id='icao-select-dropdown'
-                value={selectValue}
-                onChange={handleSelectChange}
-                label='Airport'>
-                <MenuItem value=''>None</MenuItem>
-                {airports.map((elem: any, index: number) => (
-                  <MenuItem value={elem.icao} key={index}>
-                    {elem.name}
-                  </MenuItem>
-                ))}
-              </Select>
+              <FormControl fullWidth>
+                <InputLabel id='icao-select-dropdown-label'>Airport</InputLabel>
+                <Select
+                  labelId='icao-select-dropdown-label'
+                  id='icao-select-dropdown'
+                  value={selectValue}
+                  onChange={handleSelectChange}
+                  label='Airport'
+                  name='airport'
+                  color='primary'>
+                  <MenuItem value=''>None</MenuItem>
+                  {airports.map((elem: any, index: number) => (
+                    <MenuItem value={elem.icao} key={index}>
+                      {elem.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </TabPanel>
+            <TabPanel value='3' sx={{ padding: 0 }}>
+              <h3 style={{ marginTop: 16, marginBottom: 16 }}>What is this?</h3>
+              <p>
+                This little app fetches weather from any given airport, and
+                returns it in an easy-to-read format. It works by supplying a
+                4-letter{' '}
+                <a href='https://en.wikipedia.org/wiki/ICAO_airport_code'>
+                  ICAO code
+                </a>{' '}
+                to an <a href='https://www.checkwxapi.com/'>external API</a>,
+                which then responds with the weather information. The data is
+                then parsed and sent through to be displayed!
+                <p>
+                  <b>
+                    Currently inoperational due to the backend being offline.
+                  </b>
+                </p>
+              </p>
             </TabPanel>
           </TabContext>
         </div>
-        <FormGroup className='metar-unit'>
-          <h3>Temperature</h3>
-          <FormControlLabel
-            control={<Switch onChange={handleChange} name='temp' />}
-            label={units.temp ? 'Fahrenheit' : 'Celsius'}
-          />
-          <h3>Altitude</h3>
-          <FormControlLabel
-            control={<Switch onChange={handleChange} name='alt' />}
-            label={units.alt ? 'Feet' : 'Meters'}
-          />
-          <h3>Pressure</h3>
-          <FormControlLabel
-            control={<Switch onChange={handleChange} name='baro' />}
-            label={units.baro ? 'inHg' : 'mBar'}
-          />
-        </FormGroup>
+        {tabValue !== '3' ? (
+          <FormGroup className='metar-unit'>
+            <h3>Temperature</h3>
+            <FormControlLabel
+              control={<Switch onChange={handleChange} name='temp' />}
+              label={units.temp ? 'Fahrenheit' : 'Celsius'}
+            />
+            <h3>Altitude</h3>
+            <FormControlLabel
+              control={<Switch onChange={handleChange} name='alt' />}
+              label={units.alt ? 'Feet' : 'Meters'}
+            />
+            <h3>Pressure</h3>
+            <FormControlLabel
+              control={<Switch onChange={handleChange} name='baro' />}
+              label={units.baro ? 'inHg' : 'mBar'}
+            />
+          </FormGroup>
+        ) : (
+          <></>
+        )}
       </form>
     </Box>
   );
