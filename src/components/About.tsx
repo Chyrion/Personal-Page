@@ -10,6 +10,8 @@ const About = () => {
           src={pic_of_me}
           style={{
             maxWidth: '35%',
+            minHeight: '10em',
+            minWidth: '8em',
             borderRadius: '50%',
             float: 'left',
           }}

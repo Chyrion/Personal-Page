@@ -25,12 +25,16 @@ const Wind = ({ data }: any) => {
         <div className='wind-lbox'>
           <p className='metar-p'>{windCheck()}</p>
         </div>
-        <div className='wind-rbox'>
-          <North
-            className='wind-icon'
-            style={{ transform: `rotate(${data.degrees}deg)` }}
-          />
-        </div>
+        {data !== undefined ? (
+          <div className='wind-rbox'>
+            <North
+              className='wind-icon'
+              style={{ transform: `rotate(${data.degrees}deg)` }}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

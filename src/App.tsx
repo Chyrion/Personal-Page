@@ -31,9 +31,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <div className='container'>
-        <div className='logo top'>
-          <h1>Chyrion</h1>
-        </div>
+        {window.matchMedia('(orientation:landscape)').matches ? (
+          <div className='logo top'>
+            <h1>Chyrion</h1>
+          </div>
+        ) : (
+          <div className='top'></div>
+        )}
         <Router>
           <div className='nav-menu top'>
             <Button
@@ -69,6 +73,7 @@ const App = () => {
             <Route path='/Projects' element={<Projects />} />
           </Routes>
         </Router>
+        <div className='nav-end top'></div>
         <div className='footer'>
           <p className='footer-text'>&#xa9; Vili Laine 2022</p>
         </div>

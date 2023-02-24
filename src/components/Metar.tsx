@@ -23,7 +23,6 @@ const Metar = () => {
   const getData = (apt: any) => {
     var _icao;
     apt.icao === undefined ? (_icao = apt.selectValue) : (_icao = apt.icao);
-    console.log(typeof _icao);
     if (_icao.length === 4) {
       const getInfo = async (icao: string) => {
         const infoFetched = await fetchInfo(icao);
