@@ -151,7 +151,7 @@ body {
 }
 
 .MuiButtonBase-root.MuiTab-root {
-  color: rgba(0, 0, 0, 0.431);
+  color: rgba(255, 255, 255);
   flex: 1;
 }
 

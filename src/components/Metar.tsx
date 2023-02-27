@@ -39,7 +39,7 @@ const Metar = () => {
 
   const fetchInfo = async (icao: string) => {
     console.log(icao);
-    let url = '' + icao;
+    let url = 'https://metar-backend.ey.r.appspot.com/metar/' + icao;
     const data = await fetch(url).then((response) => {
       return response.json();
     });
@@ -59,7 +59,7 @@ const Metar = () => {
   return (
     <div className='metar'>
       <div className='metar-top'>
-        <h1>METAR Lookup - !!CURRENTLY INOPERATIONAL!!</h1>
+        <h1>METAR Lookup</h1>
       </div>
       <div className='metar-container'>
         <div className='metar-search'>

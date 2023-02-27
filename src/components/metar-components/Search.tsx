@@ -129,11 +129,6 @@ const Search = ({ onSearch, unitChange, status }: any) => {
                 to an <a href='https://www.checkwxapi.com/'>external API</a>,
                 which then responds with the weather information. The data is
                 then parsed and sent through to be displayed!
-                <p>
-                  <b>
-                    Currently inoperational due to the backend being offline.
-                  </b>
-                </p>
               </p>
             </TabPanel>
           </TabContext>
