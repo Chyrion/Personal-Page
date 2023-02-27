@@ -39,7 +39,7 @@ const Metar = () => {
 
   const fetchInfo = async (icao: string) => {
     console.log(icao);
-    let url = 'https://chyrion-backend.herokuapp.com/metar/' + icao;
+    let url = '' + icao;
     const data = await fetch(url).then((response) => {
       return response.json();
     });
