@@ -1,4 +1,3 @@
-import img_lmao from '../media/istockphoto-140008012-612x612.jpg';
 import pic_of_me from '../media/photo_of_me.jpg';
 import { Link } from 'react-router-dom';
 
@@ -17,8 +16,14 @@ const Home = () => {
         </div>
       </div>
       <div className='bottom'>
-        <h3>bottom text</h3>
-        <h5>that's a link on my forehead btw</h5>
+        <h1>Hello!</h1>
+        <p>
+          I am Vili, a 24-year-old Computer Science student at the University of
+          Jyväskylä. Click my forehead to learn more about me!
+          <br /> <br />
+          You can also browse through some of my projects on the{' '}
+          <Link to={'/Projects'}>projects page!</Link>
+        </p>
         <h6>not a visual designer btw</h6>
       </div>
     </div>

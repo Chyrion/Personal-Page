@@ -52,11 +52,27 @@ const About = () => {
               padding: '0 1em',
             }}
           />
-          I am a first year Computer Science student at the University of
-          Helsinki. My primary programming focus is towards web development
-          using TypeScript and React, but I also have experience in languages
-          such as Python, C# and Lua. I am looking to build a career around
-          web/software development or cybersecurity.
+          I am a third year Computer Science student at the University of
+          Jyväskylä. I enjoy dabbling around in small projects using various
+          languages, especially with <b>Python</b> for short scripts and
+          challenges, and <b>GDScript</b> in Godot for game projects. However, I
+          feel the most comfortable in web development using{' '}
+          <b>TypeScript and React</b>, and derive the most amount of enjoyment
+          from it as well. I also have varying levels of experience from several
+          languages. In order of experience:{' '}
+          <b>JavaScript, Java, C#, Lua, Haskell.</b> I am looking to build a
+          career around web/software development or cybersecurity.
+          <br /> <br />
+          In my free time, I enjoy playing video games, mountain biking and
+          following various motorsports series (rally and endurance racing in
+          particular). I have a great deal of interest in all things automotive
+          and aviation, both of which I love to experience through simulators!
+          I've been racing in simulators for 12+ years, and have taken it up to
+          an eSports level. I've competed both as an individual, as well as a
+          team manager. I also am very curious about Japan and Japanese culture,
+          and in university I picked up studying Japanese. It has been
+          incredibly rewarding, and I currently have a long-term goal of
+          visiting and staying in Japan for an extended period of time.
         </p>
 
         <p>
@@ -69,10 +85,16 @@ const About = () => {
         <h2>Education</h2>
         {/* I know, WorkExperience used for education // it works, so I don't care to rename it */}
         <WorkExperience
+          name='University of Jyväskylä'
+          from={new Date(2023, 8)}
+          to={new Date(2026, 5)}
+          description='Bachelor of Science in Computer Science. GPA: 3,56, 86/180 credits.'
+        />
+        <WorkExperience
           name='University of Helsinki'
           from={new Date(2022, 7)}
-          to={new Date(2025, 5)}
-          description='Bachelor of Science in Computer Science. GPA: 4.2, 31/180 credits (ongoing)'
+          to={new Date(2023, 5)}
+          description='Bachelor of Science in Computer Science. Completed the first year before transferring.'
         />
         <WorkExperience
           name='Kannaksen Lukio'
@@ -88,7 +110,7 @@ const About = () => {
           from={new Date(2019, 11)}
           to={new Date(2020, 8)}
           description='Worked as a driver for several taxis under Lahden Aluetaksi in Heinola on a per-shift basis,
-           primarily as a substitute. Did a 1-month full-time period in June 2022.'
+           primarily as a substitute. Did a 1-month full-time period in June 2020.'
         />
         <WorkExperience
           name='Sector Alarm Oy'

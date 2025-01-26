@@ -13,6 +13,18 @@ const Projects = () => {
             Junction 2022: NFC Payment Card Reader
           </a>
         </li>
+        <li>
+          <a href='https://github.com/Chyrion/God-Gamer'>
+            God Gamer: A simple Discord bot for figuring out when to game with
+            your friends!
+          </a>
+        </li>
+        <li>
+          <a href='https://github.com/Chyrion/Advent-of-Code'>
+            Advent of Code: Browse through my various Advent of Code solutions
+            (I haven't been very active on them...)
+          </a>
+        </li>
       </ul>
     </div>
   );
