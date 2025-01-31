@@ -56,7 +56,7 @@ const Search = ({ onSearch, unitChange, status }: any) => {
     if (selectValue !== '') {
       onSearch({ selectValue });
     }
-  }, [selectValue]);
+  }, [selectValue, onSearch]);
 
   return (
     <Box className='metar-box'>

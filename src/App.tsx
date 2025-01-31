@@ -23,11 +23,6 @@ const theme = createTheme({
 });
 
 const App = () => {
-  const menuItems = {
-    menu1: ['METAR', 'Testbench'],
-    menu2: ['Placeholder1', 'Placeholder2'],
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <div className='container'>
@@ -75,7 +70,7 @@ const App = () => {
         </Router>
         <div className='nav-end top'></div>
         <div className='footer'>
-          <p className='footer-text'>&#xa9; Vili Laine 2022</p>
+          <p className='footer-text'>Vili Laine 2025</p>
         </div>
       </div>
     </ThemeProvider>

@@ -67,18 +67,25 @@ const About = () => {
           following various motorsports series (rally and endurance racing in
           particular). I have a great deal of interest in all things automotive
           and aviation, both of which I love to experience through simulators!
-          I've been racing in simulators for 12+ years, and have taken it up to
-          an eSports level. I've competed both as an individual, as well as a
-          team manager. I also am very curious about Japan and Japanese culture,
-          and in university I picked up studying Japanese. It has been
-          incredibly rewarding, and I currently have a long-term goal of
-          visiting and staying in Japan for an extended period of time.
+          I've been sim racing for 12+ years, and have taken it up to an eSports
+          level. I've competed both as an individual, as well as a team manager.
+          Nowadays it just merely a fun pastime, though! I also am very curious
+          about Japan and Japanese culture, and in university I picked up
+          studying Japanese. It has been incredibly rewarding, and I currently
+          have a long-term goal of visiting and staying in Japan for an extended
+          period of time.
         </p>
 
         <p>
           <a href='https://www.dropbox.com/s/pzib5eczwomyf22/ViliLaine_Resume.pdf?dl=0'>
             Download my resume!
           </a>
+        </p>
+
+        <p>
+          <h3>Contact me!</h3>
+          <b>Email</b>: laine.vili@gmail.com <br />
+          <b>Telegram</b>: @Chyrion
         </p>
       </div>
       <div>
