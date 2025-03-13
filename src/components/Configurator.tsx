@@ -27,6 +27,7 @@ type ChangeFunction = (e: ChangeEvent) => any;
 interface OptionBoxProps {
   machineOption: MachineOption;
   onChange: ChangeFunction;
+  selectedMachine: number;
 }
 
 const machines: Array<Machine> = [
@@ -57,23 +58,38 @@ const optionList: Array<MachineOption> = [
   },
 ];
 
-const OptionBox = ({ machineOption, onChange }: OptionBoxProps) => {
-  return (
-    <div className='configurator-option-box'>
-      <h3>{machineOption.name}</h3>
-      <p>Price: {machineOption.price}</p>
-      <Switch id={machineOption.id.toString()} onChange={onChange} />
-    </div>
-  );
+const OptionBox = ({
+  machineOption,
+  onChange,
+  selectedMachine,
+}: OptionBoxProps) => {
+  if (machineOption.price[selectedMachine] !== null) {
+    return (
+      <div className='configurator-option-box'>
+        <h3>{machineOption.name}</h3>
+        <p>Price: {machineOption.price[selectedMachine]}</p>
+        <Switch id={machineOption.id.toString()} onChange={onChange} />
+      </div>
+    );
+  }
+  return <div />;
 };
 
 const Configurator = () => {
-  const [price, setPrice] = useState(1.2);
+  const [price, setPrice] = useState(0.0);
   const [machine, setMachine] = useState(machines[0]);
   const [options, updateOptions] = useImmer(optionList);
 
+  const handlePrice = () => {
+    setPrice(machine.price);
+  };
+
   const handleMachine = (event: SelectChangeEvent) => {
     setMachine(machines[parseInt(event.target.value)]);
+    optionList.forEach((opt) => {
+      if (opt.price[machine.id] === null) opt.selected = false;
+    });
+    handlePrice();
   };
 
   const handleOption = (event: ChangeEvent) => {
@@ -83,8 +99,7 @@ const Configurator = () => {
       const _opt = opt.find((a) => a.id === optionHandled.id);
       if (_opt !== undefined) _opt.selected = !_opt.selected;
     });
-
-    console.log(options);
+    handlePrice();
   };
 
   return (
@@ -96,14 +111,15 @@ const Configurator = () => {
         flexDirection: 'column',
       }}>
       <h1>Configurator</h1>
-      <h3>Price: {machine.price}</h3>
+      <h3>Price: {price}</h3>
       <div className='configurator-config'>
         <FormControl>
           <InputLabel id='machine-select-label'>Machine</InputLabel>
           <Select
             labelId='machine-select-label'
             id='machine-select'
-            value={`0`}
+            defaultValue='0'
+            value={machine.id.toString()}
             label='Machine'
             onChange={handleMachine}>
             {machines.map((_machine) => (
@@ -113,7 +129,11 @@ const Configurator = () => {
         </FormControl>
         <div className='configurator-options'>
           {options.map((_option) => (
-            <OptionBox machineOption={_option} onChange={handleOption} />
+            <OptionBox
+              machineOption={_option}
+              onChange={handleOption}
+              selectedMachine={machine.id}
+            />
           ))}
         </div>
       </div>
