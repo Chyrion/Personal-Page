@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Metar from './components/Metar';
 import About from './components/About';
 import Projects from './components/Projects';
+import Configurator from './components/Configurator';
 
 const theme = createTheme({
   palette: {
@@ -66,6 +67,7 @@ const App = () => {
             />
             <Route path='/About' element={<About />} />
             <Route path='/Projects' element={<Projects />} />
+            <Route path='/Configurator' element={<Configurator />} />
           </Routes>
         </Router>
         <div className='nav-end top'></div>
