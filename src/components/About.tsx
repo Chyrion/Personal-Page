@@ -77,7 +77,7 @@ const About = () => {
         </p>
 
         <p>
-          <a href='https://www.dropbox.com/s/pzib5eczwomyf22/ViliLaine_Resume.pdf?dl=0'>
+          <a href='https://www.dropbox.com/scl/fi/sorl0emmvblsseqew8ob8/Vili-Laine-Resume.pdf?rlkey=38fvg5vwerzbre1f7oyeh4ed6&st=on6acia0&dl=0'>
             Download my resume!
           </a>
         </p>
