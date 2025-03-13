@@ -7,6 +7,7 @@ import {
   SelectChangeEvent,
   Switch,
 } from '@mui/material';
+import { useImmer } from 'use-immer';
 
 interface Machine {
   id: number;
@@ -35,7 +36,7 @@ const machines: Array<Machine> = [
   { id: 3, name: 'aquaBlast 1215 Wheelblast', price: 23222 },
 ];
 
-const options: Array<MachineOption> = [
+const optionList: Array<MachineOption> = [
   {
     id: 0,
     name: 'Blast gun holder',
@@ -69,7 +70,7 @@ const OptionBox = ({ machineOption, onChange }: OptionBoxProps) => {
 const Configurator = () => {
   const [price, setPrice] = useState(1.2);
   const [machine, setMachine] = useState(machines[0]);
-  const [option, setOption] = useState(options);
+  const [options, updateOptions] = useImmer(optionList);
 
   const handleMachine = (event: SelectChangeEvent) => {
     setMachine(machines[parseInt(event.target.value)]);
@@ -77,10 +78,12 @@ const Configurator = () => {
 
   const handleOption = (event: ChangeEvent) => {
     let optionHandled = options[parseInt(event.target.id)];
-    setOption([
-      ...options,
-      { ...optionHandled, selected: !optionHandled.selected },
-    ]);
+
+    updateOptions((opt) => {
+      const _opt = opt.find((a) => a.id === optionHandled.id);
+      if (_opt !== undefined) _opt.selected = !_opt.selected;
+    });
+
     console.log(options);
   };
 
