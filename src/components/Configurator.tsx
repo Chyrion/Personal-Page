@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Switch,
 } from '@mui/material';
 
 interface Machine {
@@ -18,6 +19,13 @@ interface MachineOption {
   name: string;
   price: Array<number | null>;
   selected: boolean;
+}
+
+type ChangeFunction = (e: ChangeEvent) => any;
+
+interface OptionBoxProps {
+  machineOption: MachineOption;
+  onChange: ChangeFunction;
 }
 
 const machines: Array<Machine> = [
@@ -48,6 +56,16 @@ const options: Array<MachineOption> = [
   },
 ];
 
+const OptionBox = ({ machineOption, onChange }: OptionBoxProps) => {
+  return (
+    <div className='configurator-option-box'>
+      <h3>{machineOption.name}</h3>
+      <p>Price: {machineOption.price}</p>
+      <Switch id={machineOption.id.toString()} onChange={onChange} />
+    </div>
+  );
+};
+
 const Configurator = () => {
   const [price, setPrice] = useState(1.2);
   const [machine, setMachine] = useState(machines[0]);
@@ -55,6 +73,15 @@ const Configurator = () => {
 
   const handleMachine = (event: SelectChangeEvent) => {
     setMachine(machines[parseInt(event.target.value)]);
+  };
+
+  const handleOption = (event: ChangeEvent) => {
+    let optionHandled = options[parseInt(event.target.id)];
+    setOption([
+      ...options,
+      { ...optionHandled, selected: !optionHandled.selected },
+    ]);
+    console.log(options);
   };
 
   return (
@@ -66,7 +93,7 @@ const Configurator = () => {
         flexDirection: 'column',
       }}>
       <h1>Configurator</h1>
-      <h3>Price: {price}</h3>
+      <h3>Price: {machine.price}</h3>
       <div className='configurator-config'>
         <FormControl>
           <InputLabel id='machine-select-label'>Machine</InputLabel>
@@ -81,6 +108,11 @@ const Configurator = () => {
             ))}
           </Select>
         </FormControl>
+        <div className='configurator-options'>
+          {options.map((_option) => (
+            <OptionBox machineOption={_option} onChange={handleOption} />
+          ))}
+        </div>
       </div>
     </div>
   );

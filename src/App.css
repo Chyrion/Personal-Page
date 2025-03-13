@@ -241,3 +241,30 @@ a:hover {
   margin: 0;
   padding: 1% 1em 0 1em;
 }
+
+#machine-select,
+#machine-select-label {
+  color: white;
+}
+
+.MuiSvgIcon-root {
+  color: white;
+}
+
+.configurator-options .configurator-option-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.configurator-option-box {
+  margin: 1em 0;
+  background-color: #484b52;
+  border-radius: 0.5em;
+  max-width: 50%;
+  min-width: none;
+}
+
+.configurator-option-box h3,
+.configurator-option-box p {
+  margin: 0.1em 0.5em;
+}
