@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -9,18 +9,18 @@ import {
 } from '@mui/material';
 import { useImmer } from 'use-immer';
 
-interface Machine {
+type Machine = {
   id: number;
   name: string;
   price: number;
-}
+};
 
-interface MachineOption {
+type MachineOption = {
   id: number;
   name: string;
   price: Array<number | null>;
   selected: boolean;
-}
+};
 
 type ChangeFunction = (e: ChangeEvent) => any;
 
@@ -81,11 +81,37 @@ const Configurator = () => {
   const [options, updateOptions] = useImmer(optionList);
 
   const handlePrice = () => {
-    setPrice(machine.price);
+    const currPrice = machine.price;
+    const newPrice = currPrice + calculateOptionPrices();
+    setPrice(newPrice);
+  };
+
+  const calculateOptionPrices = () => {
+    // please let me live. I hate that this isn't typed, I'd like it to be Array<number>
+    // but because MachineOption.price is Array<number | null>, it starts complaining if I make it into anything else
+    // but I need it to be Array<number> to use something like .reduce for nice calculations
+    let prices = options.flatMap((o) =>
+      typeof o.price[machine.id] === 'number' && o.selected
+        ? o.price[machine.id]
+        : 0
+    );
+
+    // This, combined with how option availability is handled in handleOption, created an annoying bug
+    // Select machine with all options available -> turn on an option that is not available on a different machine
+    // -> select the machine that doesn't have the option -> select the original machine again
+    // The option you selected will show as toggled off... but it is actually now acting inverted
+    // So it shows as not selected, but it is included in the price............
+    // I had an idea for a fix, but it broke the page entirely, so................... just be careful
+    let totalPrice = 0.0;
+    prices.forEach((p) => {
+      p !== null ? (totalPrice += p) : (totalPrice = totalPrice);
+    });
+    return totalPrice;
   };
 
   const handleMachine = (event: SelectChangeEvent) => {
-    setMachine(machines[parseInt(event.target.value)]);
+    let newMachineId = parseInt(event.target.value);
+    setMachine(machines[newMachineId]);
     optionList.forEach((opt) => {
       if (opt.price[machine.id] === null) opt.selected = false;
     });
@@ -101,6 +127,10 @@ const Configurator = () => {
     });
     handlePrice();
   };
+
+  useEffect(() => {
+    handlePrice();
+  }, [machine, options]);
 
   return (
     <div
