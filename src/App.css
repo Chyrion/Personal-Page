@@ -268,3 +268,7 @@ a:hover {
 .configurator-option-box p {
   margin: 0.1em 0.5em;
 }
+
+.configurator-button-download {
+  width: 50%;
+}

@@ -148,7 +148,12 @@ const Configurator = () => {
         flexDirection: 'column',
       }}>
       <h1>Configurator</h1>
-      <Button onClick={downloadFile}>Wahoo</Button>
+      <Button
+        className='configurator-button-download'
+        onClick={downloadFile}
+        variant={'contained'}>
+        Download config
+      </Button>
       <h3>Price: {price}</h3>
       <div className='configurator-config'>
         <FormControl>

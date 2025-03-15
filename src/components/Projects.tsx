@@ -25,6 +25,11 @@ const Projects = () => {
             (I haven't been very active on them...)
           </a>
         </li>
+        <li>
+          <Link to={'/Configurator'}>
+            Machine configurator: A quick proof-of-concept project
+          </Link>
+        </li>
       </ul>
     </div>
   );
