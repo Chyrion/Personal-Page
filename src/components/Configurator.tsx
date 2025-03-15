@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -63,12 +63,17 @@ const OptionBox = ({
   onChange,
   selectedMachine,
 }: OptionBoxProps) => {
+  let isChecked = machineOption.selected ? true : false;
   if (machineOption.price[selectedMachine] !== null) {
     return (
       <div className='configurator-option-box'>
         <h3>{machineOption.name}</h3>
         <p>Price: {machineOption.price[selectedMachine]}</p>
-        <Switch id={machineOption.id.toString()} onChange={onChange} />
+        <Switch
+          id={machineOption.id.toString()}
+          onChange={onChange}
+          checked={isChecked}
+        />
       </div>
     );
   }
@@ -104,7 +109,7 @@ const Configurator = () => {
     // I had an idea for a fix, but it broke the page entirely, so................... just be careful
     let totalPrice = 0.0;
     prices.forEach((p) => {
-      p !== null ? (totalPrice += p) : (totalPrice = totalPrice);
+      if (p !== null) totalPrice += p;
     });
     return totalPrice;
   };
@@ -112,9 +117,16 @@ const Configurator = () => {
   const handleMachine = (event: SelectChangeEvent) => {
     let newMachineId = parseInt(event.target.value);
     setMachine(machines[newMachineId]);
-    optionList.forEach((opt) => {
-      if (opt.price[machine.id] === null) opt.selected = false;
+
+    updateOptions((opt) => {
+      const _opt = opt.find(
+        (a) => a.price[newMachineId] === null && a.selected
+      );
+      if (_opt !== undefined) _opt.selected = false;
     });
+    // options.forEach((opt) => {
+    //   if (opt.price[machine.id] === null) opt.selected = false;
+    // });
     handlePrice();
   };
 
