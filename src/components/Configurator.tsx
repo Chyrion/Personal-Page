@@ -1,5 +1,11 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import {
+  Machine,
+  MachineOption,
+} from './configurator-components/ConfiguratorTypes';
+import { createMachineFile } from './configurator-components/ConfiguratorJsonHandler';
+import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
@@ -8,19 +14,6 @@ import {
   Switch,
 } from '@mui/material';
 import { useImmer } from 'use-immer';
-
-type Machine = {
-  id: number;
-  name: string;
-  price: number;
-};
-
-type MachineOption = {
-  id: number;
-  name: string;
-  price: Array<number | null>;
-  selected: boolean;
-};
 
 type ChangeFunction = (e: ChangeEvent) => any;
 
@@ -100,13 +93,6 @@ const Configurator = () => {
         ? o.price[machine.id]
         : 0
     );
-
-    // This, combined with how option availability is handled in handleOption, created an annoying bug
-    // Select machine with all options available -> turn on an option that is not available on a different machine
-    // -> select the machine that doesn't have the option -> select the original machine again
-    // The option you selected will show as toggled off... but it is actually now acting inverted
-    // So it shows as not selected, but it is included in the price............
-    // I had an idea for a fix, but it broke the page entirely, so................... just be careful
     let totalPrice = 0.0;
     prices.forEach((p) => {
       if (p !== null) totalPrice += p;
@@ -144,6 +130,15 @@ const Configurator = () => {
     handlePrice();
   }, [machine, options]);
 
+  const downloadFile = () => {
+    const machineFile = createMachineFile(machine, options);
+    const fileUrl = URL.createObjectURL(machineFile);
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = 'machine.json';
+    link.click();
+  };
+
   return (
     <div
       className='configurator-main'
@@ -153,6 +148,7 @@ const Configurator = () => {
         flexDirection: 'column',
       }}>
       <h1>Configurator</h1>
+      <Button onClick={downloadFile}>Wahoo</Button>
       <h3>Price: {price}</h3>
       <div className='configurator-config'>
         <FormControl>
