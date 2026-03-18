@@ -116,7 +116,7 @@ const About = () => {
         <WorkExperience
           name='AkvaBlast Suomi Oy'
           from={new Date(2024, 1)}
-          description='(Ongoing) IT Admin, responsible for the company website, handling everything IT-related within the company,
+          description='IT Admin, responsible for the company website, handling everything IT-related within the company,
           and helping manage international communications with business partners'
         />
         <WorkExperience
