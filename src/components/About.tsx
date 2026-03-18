@@ -52,7 +52,7 @@ const About = () => {
               padding: '0 1em',
             }}
           />
-          I am a third year Computer Science student at the University of
+          I am a fourth year Computer Science student at the University of
           Jyväskylä. I enjoy dabbling around in small projects using various
           languages, especially with <b>Python</b> for short scripts and
           challenges, and <b>GDScript</b> in Godot for game projects. However, I
@@ -77,7 +77,7 @@ const About = () => {
         </p>
 
         <p>
-          <a href='https://www.dropbox.com/scl/fi/sorl0emmvblsseqew8ob8/Vili-Laine-Resume.pdf?rlkey=38fvg5vwerzbre1f7oyeh4ed6&st=on6acia0&dl=0'>
+          <a href='https://www.dropbox.com/scl/fi/2ktwdqxa7qfj68r25yldh/ViliLaine_Resume.pdf?rlkey=8fqhagkg1vvf175yja6ffmyp9&st=zlzmuxty&dl=0'>
             Download my resume!
           </a>
         </p>
@@ -94,8 +94,8 @@ const About = () => {
         <WorkExperience
           name='University of Jyväskylä'
           from={new Date(2023, 8)}
-          to={new Date(2026, 5)}
-          description='Bachelor of Science in Computer Science. GPA: 3,56, 86/180 credits.'
+          to={new Date(2026, 12)}
+          description='Bachelor of Science in Computer Science. GPA: 3,37, 114/180 credits.'
         />
         <WorkExperience
           name='University of Helsinki'
@@ -112,6 +112,12 @@ const About = () => {
       </div>
       <div>
         <h2>Work experience</h2>
+        <WorkExperience
+          name='AkvaBlast Suomi Oy'
+          from={new Date(2024, 1)}
+          description='(Ongoing) IT Admin, responsible for the company website, handling everything IT-related within the company,
+          and helping manage international communications with business partners'
+        />
         <WorkExperience
           name='Lahden Aluetaksi'
           from={new Date(2019, 11)}
