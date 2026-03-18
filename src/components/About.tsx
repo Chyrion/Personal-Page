@@ -18,7 +18,9 @@ const WorkExperience = ({
       <h4>{name}</h4>
       <p style={{ color: 'rgb(255,255,255,0.75)' }}>
         {String(from.getMonth()).padStart(2, '0')}.{from.getFullYear()} -{' '}
-        {String(to!.getMonth()).padStart(2, '0')}.{to!.getFullYear()}
+        {to
+          ? (String(to.getMonth()).padStart(2, '0'), '.', to.getFullYear())
+          : 'Ongoing'}
       </p>
       <p>{description}</p>
       <p></p>
@@ -63,17 +65,16 @@ const About = () => {
           <b>JavaScript, Java, C#, Lua, Haskell.</b> I am looking to build a
           career around web/software development or cybersecurity.
           <br /> <br />
-          In my free time, I enjoy playing video games, mountain biking and
-          following various motorsports series (rally and endurance racing in
-          particular). I have a great deal of interest in all things automotive
-          and aviation, both of which I love to experience through simulators!
-          I've been sim racing for 12+ years, and have taken it up to an eSports
-          level. I've competed both as an individual, as well as a team manager.
-          Nowadays it just merely a fun pastime, though! I also am very curious
-          about Japan and Japanese culture, and in university I picked up
-          studying Japanese. It has been incredibly rewarding, and I currently
-          have a long-term goal of visiting and staying in Japan for an extended
-          period of time.
+          In my free time, I enjoy playing video games and following various
+          motorsports series (rally and endurance racing in particular). I have
+          a great deal of interest in all things automotive and aviation, both
+          of which I love to experience through simulators! I've been sim racing
+          for 12+ years, and have taken it up to an eSports level. I've competed
+          both as an individual, as well as a team manager. Nowadays it just
+          merely a fun pastime, though! I also am very curious about Japan and
+          Japanese culture, and in university I picked up studying Japanese. It
+          has been incredibly rewarding, and I currently have a long-term goal
+          of visiting and staying in Japan for an extended period of time.
         </p>
 
         <p>
